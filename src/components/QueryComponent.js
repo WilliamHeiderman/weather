@@ -31,7 +31,6 @@ export default class QueryForm extends React.Component {
       .then(response => response.json())
       .then(
         result => {
-          console.log(result);
           if (result.cod === "404") {
             this.setState({
               isLoaded: true,
@@ -86,7 +85,6 @@ export default class QueryForm extends React.Component {
   }
   handleSubmit = event => {
     event.preventDefault();
-    console.debug("Querying", this.state.query);
     this.setState({
       isLoaded: false,
       error: null
@@ -98,7 +96,6 @@ export default class QueryForm extends React.Component {
   };
   render() {
     const { isLoaded, query, error, weather } = this.state;
-    console.log({ weather });
     return isLoaded ? (
       <form className="input_wrapper" onSubmit={this.handleSubmit}>
         <label htmlFor="query_input">Query:</label>
@@ -108,12 +105,8 @@ export default class QueryForm extends React.Component {
           id="query_input"
           onChange={this.handleQueryChange}
         />
-
         <FormStatus {...{ isLoaded, query, error }} />
-
         { weather && <WeatherResult {...weather}/> }
-
-        
       </form>
     ) : <h1>Loading...</h1>;
   }
